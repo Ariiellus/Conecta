@@ -2,13 +2,14 @@ import { ReactNode } from "react";
 import "./globals.css";
 import Providers from "./providers/providers";
 import { Navbar } from "../components/layout/navbar";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "../components/ui/sonner";
 
 export const metadata = {
   title: "Conecta",
   description: "Pay anyone, anywhere",
 };
 
+// this will be the landing page
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
