@@ -3,7 +3,7 @@
 import { type Dispatch, type SetStateAction } from "react";
 import { usePrivy, useLogin, useLogout } from "@privy-io/react-auth";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
 type AuthButtonProps = {
@@ -20,7 +20,7 @@ export default function AuthButton({
   const { login } = useLogin({
     onComplete: () => {
       toast.success("Welcome back! 🌟");
-      return router.push("/dashboard");
+      return router.push("/portal/client/src/pages/Home");
     },
     onError: (error) => {
       return toast.error("Login failed: " + error);
