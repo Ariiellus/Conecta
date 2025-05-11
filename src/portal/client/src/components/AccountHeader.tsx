@@ -1,12 +1,12 @@
 
 import { Bell, CreditCard, User, LogOut } from "lucide-react";
-import { Button } from "../../../../src/components/ui/button";
+import { Button } from "../../src/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../components/ui/dropdown-menu";
 import { Link } from "wouter";
 
 interface AccountHeaderProps {

@@ -20,7 +20,7 @@ export default function AuthButton({
   const { login } = useLogin({
     onComplete: () => {
       toast.success("Welcome back! 🌟");
-      return router.push("/portal/client/src/pages/Home");
+      return router.push("/");
     },
     onError: (error) => {
       return toast.error("Login failed: " + error);

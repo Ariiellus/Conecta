@@ -4,8 +4,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "../../../../src/components/ui/button";
+} from "../components/ui/dialog";
+import { Button } from "../../src/components/ui/button";
 import { Check, FileText } from "lucide-react";
 
 interface SuccessModalProps {
