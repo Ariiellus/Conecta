@@ -1,4 +1,4 @@
-import { users, type User, type InsertUser, transactions, type Transaction, type InsertTransaction } from "@shared/schema";
+import { users, type User, type InsertUser, transactions, type Transaction, type InsertTransaction } from "../shared/schema";
 
 // Interface for storage operations
 export interface IStorage {

@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
-import { Card } from "@/components/ui/card";
+import { Card } from "../components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Input } from "@/components/ui/input";
-import { Button } from "../../../../src/components/ui/button";
+import { Button } from "../../src/components/ui/button";
 
 const cryptoData = [
   { id: 1, name: 'Bitcoin', symbol: 'BTC', price: 45000, holdings: 0.5, change: 2.5 },

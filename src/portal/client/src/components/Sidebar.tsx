@@ -1,7 +1,7 @@
 import { Home, ArrowRightLeft, History, Users, Settings, ChevronLeft, ChevronRight, LogOut, Wallet } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import TransactionItem from "./TransactionItem";
-import { Transaction } from "@shared/schema";
+import { Transaction } from "../../../shared/schema";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import {
@@ -9,7 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../components/ui/dropdown-menu";
 
 interface SidebarProps {
   transactions: Transaction[];

@@ -1,5 +1,5 @@
 import { ArrowUp, ArrowDown } from "lucide-react";
-import { Transaction } from "@shared/schema";
+import { Transaction } from "../../../shared/schema";
 import { formatDistanceToNow } from "date-fns";
 
 interface TransactionItemProps {

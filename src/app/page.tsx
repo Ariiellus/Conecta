@@ -2,27 +2,10 @@
 
 import Image from "next/image";
 import { usePrivy, useLogin } from "@privy-io/react-auth";
-import Home from "../portal/client/src/pages/Home";
+import App from "../portal/client/src/App";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-
-// for reference:
-// export default function AuthButton({
-//   size = "default",
-//   setIsMenuOpen,
-// }: AuthButtonProps) {
-//   const { ready, authenticated } = usePrivy();
-//   const router = useRouter();
-//   const { login } = useLogin({
-//     onComplete: () => {
-//       toast.success("Welcome back! 🌟");
-//       return router.push("/portal/client/src/pages/Home");
-//     },
-//     onError: (error) => {
-//       return toast.error("Login failed: " + error);
-//     },
-//   });
 export default function HomePage() {
   const router = useRouter();
   const { login } = useLogin({
@@ -37,7 +20,7 @@ export default function HomePage() {
   const { authenticated } = usePrivy();
 
   if (authenticated) {
-    return <Home />;
+    return <App />;
   } else {
     return (
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
