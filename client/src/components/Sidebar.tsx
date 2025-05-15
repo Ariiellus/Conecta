@@ -1,10 +1,9 @@
-import { Home, ArrowRightLeft, History, Users, Settings, ChevronLeft, ChevronRight, LogOut, Wallet } from "lucide-react";
+import { Home, ArrowRightLeft, History, Users, Settings, ChevronLeft, ChevronRight, Wallet } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import TransactionItem from "./TransactionItem";
 import { Transaction } from "@shared/schema";
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { usePrivy } from "@privy-io/react-auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,9 +16,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ transactions }: SidebarProps) {
-  const [location, setLocation] = useLocation();
+  const [location] = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const { logout } = usePrivy();
 
   const navItems = [
     { href: "/dashboard", label: "Payments", icon: <ArrowRightLeft className="h-6 w-6 min-w-6 flex-shrink-0" /> },
@@ -28,15 +26,6 @@ export default function Sidebar({ transactions }: SidebarProps) {
     { href: "/contacts", label: "Contacts", icon: <Users className="h-6 w-6 min-w-6 flex-shrink-0" /> },
     { href: "/settings", label: "Settings", icon: <Settings className="h-6 w-6 min-w-6 flex-shrink-0" /> },
   ];
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      setLocation("/"); // Redirect to main page after logout
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
 
   const recentTransactions = transactions.slice(0, 3);
 
@@ -50,31 +39,14 @@ export default function Sidebar({ transactions }: SidebarProps) {
           </div>
           {!isCollapsed && <span className="ml-3 text-lg font-semibold">Conecta</span>}
         </div>
-        <div className="flex items-center">
-          {!isCollapsed && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full hover:bg-gray-100">
-                  <Settings className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="ml-2 p-2 h-10 w-10 rounded-full hover:bg-gray-100"
-          >
-            {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
-          </Button>
-        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="p-2 h-10 w-10 rounded-full hover:bg-gray-100"
+        >
+          {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
+        </Button>
       </div>
 
       {/* Navigation Items */}
@@ -99,21 +71,6 @@ export default function Sidebar({ transactions }: SidebarProps) {
               </Link>
             </li>
           ))}
-          
-          {/* Logout item for collapsed mode */}
-          {isCollapsed && (
-            <li className="mb-4 mt-8">
-              <div 
-                onClick={handleLogout}
-                className="flex items-center p-3 rounded-lg transition-colors group text-primary-dark hover:bg-gray-100 cursor-pointer justify-center"
-                title="Log out"
-              >
-                <div className="flex items-center justify-center">
-                  <LogOut className="h-6 w-6 min-w-6 flex-shrink-0 text-red-500" />
-                </div>
-              </div>
-            </li>
-          )}
         </ul>
       </nav>
 
