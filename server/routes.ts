@@ -206,10 +206,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Currency conversion endpoint (mock)
+  // Currency conversion endpoint with network support
   apiRouter.get("/currency/convert", async (req, res) => {
     try {
-      const { from, to, amount } = req.query;
+      const { from, to, amount, networkId = "8453" } = req.query;
       
       if (!from || !to || !amount) {
         return res.status(400).json({ error: "Missing required parameters: from, to, amount" });
@@ -219,34 +219,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(numAmount)) {
         return res.status(400).json({ error: "Invalid amount" });
       }
+
+      type NetworkRates = {
+        [network: string]: {
+          [currency: string]: number;
+        };
+      };
       
-      // Mock conversion rates (in a real app, these would come from an external API)
-      const rates = {
-        USD: 1,
-        MXN: 17.5,
-        BRZ: 5.2,
-        AUDD: 1.5,
-        USDC: 1,
-        EURC: 0.92
+      // Mock conversion rates per network (in a real app, these would come from an external API)
+      const networkRates: NetworkRates = {
+        "8453": { // Base Network
+          USD: 1,
+          MXN: 17.5,
+          BRZ: 5.2,
+          USDC: 1,
+          EURC: 0.92
+        },
+        "5000": { // Mantle Network
+          USD: 1,
+          BRZ: 5.2,
+          USDC: 1
+        }
       };
       
       const fromCurrency = (from as string).toUpperCase();
       const toCurrency = (to as string).toUpperCase();
+      const network = networkId as string;
       
-      if (!rates[fromCurrency] || !rates[toCurrency]) {
-        return res.status(400).json({ error: "Unsupported currency" });
+      // Check if network is supported
+      if (!networkRates[network]) {
+        return res.status(400).json({ error: "Unsupported network" });
+      }
+      
+      // Check if currencies are supported on the network
+      if (!networkRates[network][fromCurrency] || !networkRates[network][toCurrency]) {
+        return res.status(400).json({ error: "Unsupported currency pair for the selected network" });
       }
       
       // Convert to USD first, then to target currency
-      const inUSD = numAmount / rates[fromCurrency];
-      const converted = inUSD * rates[toCurrency];
+      const inUSD = numAmount / networkRates[network][fromCurrency];
+      const converted = inUSD * networkRates[network][toCurrency];
       
       res.json({
         from: fromCurrency,
         to: toCurrency,
         amount: numAmount,
         result: converted,
-        rate: rates[toCurrency] / rates[fromCurrency]
+        rate: networkRates[network][toCurrency] / networkRates[network][fromCurrency],
+        networkId: network
       });
     } catch (error) {
       console.error("Error converting currency:", error);

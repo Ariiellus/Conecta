@@ -13,6 +13,7 @@ import React from "react";
 import AccountHeader from "@/components/AccountHeader";
 import PaymentForm from "@/components/PaymentForm";
 import TransactionItem from "@/components/TransactionItem";
+import { NebulaButton } from "@/components/NebulaButton";
 
 const recentContacts = [
   { id: 1, name: "Alex", initials: "AM", color: "bg-primary" },
@@ -26,7 +27,7 @@ export default function Home() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { data: transactions = [] } = useTransactions();
-  const { logout } = usePrivy();
+  const { user, logout } = usePrivy();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [mode, setMode] = useState<"send" | "receive">("send");
@@ -39,11 +40,12 @@ export default function Home() {
   });
   const [transactionId, setTransactionId] = useState("");
   const [transactionTime, setTransactionTime] = useState("");
-  
-  // Current user info (would come from auth in a real app)
-  const user = {
-    balance: "$2,456.80",
-    initials: "JD",
+
+  // Use actual user data from Privy
+  const userInfo = {
+    balance: "$2,456.80", // This should come from your actual balance tracking
+    initials: user?.wallet?.address?.slice(2, 4).toUpperCase() || "??",
+    address: user?.wallet?.address
   };
 
   const createTransactionMutation = useMutation({
@@ -113,9 +115,9 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-gray-50 relative">
       <div className="container mx-auto px-4 py-8">
-        <AccountHeader user={user} />
+        <AccountHeader user={userInfo} />
         <div className="mt-8">
           <PaymentForm 
             mode={mode}
@@ -137,23 +139,13 @@ export default function Home() {
             ))}
           </div>
         </div>
-        {/* Recent Contacts (Mobile only) */}
-        {/*
-        <div className="mt-8 md:hidden">
-          <h3 className="text-lg font-semibold mb-4">Recent Contacts</h3>
-          <div className="flex overflow-x-auto space-x-4 pb-4">
-            {recentContacts.map((contact) => (
-              <ContactItem 
-                key={contact.id}
-                name={contact.name}
-                initials={contact.initials}
-                color={contact.color}
-              />
-            ))}
-          </div>
-        </div>
-        */}
       </div>
+
+      {/* Fixed position Nebula Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <NebulaButton />
+      </div>
+
       {/* Modals */}
       <ConfirmationModal
         isOpen={isConfirmModalOpen}

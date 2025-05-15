@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, CreditCard, User, LogOut } from "lucide-react";
+import { Bell, CreditCard, User, LogOut, ArrowDown, ArrowUp, Search } from "lucide-react";
 import { Button } from "../components/ui/button";
 import {
   DropdownMenu,
@@ -9,6 +9,8 @@ import {
 } from "../components/ui/dropdown-menu";
 import { Link, useLocation } from "wouter";
 import { usePrivy } from "@privy-io/react-auth";
+import { Input } from "./ui/input";
+import { NebulaButton } from "./NebulaButton";
 
 interface AccountHeaderProps {
   user: {

@@ -53,7 +53,23 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  const port = 3000;
+  // Try to find an available port starting from 3000
+  const findAvailablePort = (startPort: number): Promise<number> => {
+    return new Promise((resolve) => {
+      const tryPort = (port: number) => {
+        server.listen(port, "0.0.0.0")
+          .once('listening', () => {
+            server.close(() => resolve(port));
+          })
+          .once('error', () => {
+            tryPort(port + 1);
+          });
+      };
+      tryPort(startPort);
+    });
+  };
+
+  const port = await findAvailablePort(3000);
   server.listen({
     port,
     host: "0.0.0.0",
