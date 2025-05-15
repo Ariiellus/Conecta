@@ -2,6 +2,8 @@
 
 > Pay now, anywhere
 
+Demo [here](https://conecta-git-main-ariiellus-projects.vercel.app/)
+
 ![landing](./assets/Landing.png)
 
 ## Overview
