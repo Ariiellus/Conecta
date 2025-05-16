@@ -2,7 +2,7 @@
 
 > Pay now, anywhere
 
-Demo [here](https://conecta-git-main-ariiellus-projects.vercel.app/)
+Demo [here](https://conecta-y6it.vercel.app/)
 
 ![landing](./assets/Landing.png)
 

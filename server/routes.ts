@@ -1,7 +1,7 @@
 import express, { Router, type Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertTransactionSchema, insertContactSchema } from "@shared/schema";
+import { insertTransactionSchema, insertContactSchema } from "../shared/schema";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 import { z } from "zod";

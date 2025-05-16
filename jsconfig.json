@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "forge-std/*": ["lib/forge-std/src/*"],
+      "@openzeppelin/*": ["lib/openzeppelin-contracts/*"],
+      "v4-core/*": ["lib/v4-core/src/*"]
+    }
+  }
+} 
