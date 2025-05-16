@@ -1,7 +1,9 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, CreditCard } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { usePrivy } from "@privy-io/react-auth";
 
@@ -9,7 +11,7 @@ export default function Landing() {
   const [recipientIndex, setRecipientIndex] = useState(0);
   const [fadeState, setFadeState] = useState(true); // true = visible, false = fading
   const { login, authenticated, ready } = usePrivy();
-  const [_, setLocation] = useLocation();
+  const router = useRouter();
   const recipientFormats = [
     "sara@example.com",
     "sara.eth",
@@ -45,7 +47,7 @@ export default function Landing() {
   const handleGetStarted = (e: React.MouseEvent) => {
     e.preventDefault();
     if (ready && authenticated) {
-      setLocation("/dashboard");
+      router.push("/dashboard");
     } else {
       login();
     }

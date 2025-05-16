@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useContacts } from "@/hooks/useContacts";
 import { Button } from "@/components/ui/button";
@@ -7,16 +9,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { 
-  UserPlus, 
-  Search, 
-  Star, 
-  MoreVertical, 
-  Loader2, 
-  User, 
-  Trash,
-  Edit,
-  Mail,
-  Phone
+  UserPlus as UserPlusIcon, 
+  Search as SearchIcon, 
+  Star as StarIcon, 
+  MoreVertical as MoreVerticalIcon, 
+  Loader2 as Loader2Icon, 
+  User as UserIcon, 
+  Trash as TrashIcon,
+  Edit as EditIcon,
+  Mail as MailIcon,
+  Phone as PhoneIcon
 } from "lucide-react";
 import { 
   DropdownMenu,
@@ -24,7 +26,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Contact } from "@shared/schema";
+import { Contact } from "@/app/shared/schema";
 
 export default function Contacts() {
   const { contacts, isLoading, createContact, updateContact, deleteContact, isCreating, isUpdating, isDeleting } = useContacts();
@@ -42,21 +44,21 @@ export default function Contacts() {
   });
   
   // Filter contacts based on search term
-  const filteredContacts = contacts.filter(
-    contact => contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              (contact.email && contact.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
-              (contact.phone && contact.phone.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredContacts = contacts.filter((contact: Contact) =>
+    contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (contact.email && contact.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (contact.phone && contact.phone.toLowerCase().includes(searchTerm.toLowerCase()))
   );
   
   // Group contacts by first letter
-  const groupedContacts = filteredContacts.reduce((acc, contact) => {
+  const groupedContacts = filteredContacts.reduce((acc: Record<string, Contact[]>, contact: Contact) => {
     const firstLetter = contact.name.charAt(0).toUpperCase();
     if (!acc[firstLetter]) {
       acc[firstLetter] = [];
     }
     acc[firstLetter].push(contact);
     return acc;
-  }, {} as Record<string, Contact[]>);
+  }, {});
   
   // Sort keys alphabetically
   const sortedKeys = Object.keys(groupedContacts).sort();
@@ -173,7 +175,7 @@ export default function Contacts() {
         <h1 className="text-3xl font-bold mb-4 md:mb-0">Contacts</h1>
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
           <div className="relative flex-grow">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <SearchIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input 
               placeholder="Search contacts" 
               className="pl-10 h-12"
@@ -184,7 +186,7 @@ export default function Contacts() {
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
               <Button className="h-12">
-                <UserPlus className="mr-2 h-4 w-4" />
+                <UserPlusIcon className="mr-2 h-4 w-4" />
                 Add Contact
               </Button>
             </DialogTrigger>
@@ -250,7 +252,7 @@ export default function Contacts() {
                 <Button onClick={handleAddContact} disabled={isCreating}>
                   {isCreating ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
                       Adding...
                     </>
                   ) : (
@@ -322,7 +324,7 @@ export default function Contacts() {
                 <Button onClick={handleUpdateContact} disabled={isUpdating}>
                   {isUpdating ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
                       Updating...
                     </>
                   ) : (
@@ -337,28 +339,28 @@ export default function Contacts() {
       
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <Loader2Icon className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : filteredContacts.length === 0 ? (
         <div className="bg-white rounded-xl shadow-sm p-8 text-center border border-gray-200">
-          <User className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+          <UserIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
           <h3 className="text-lg font-semibold mb-2">No contacts found</h3>
           <p className="text-gray-500 mb-4">
             {searchTerm ? "Try adjusting your search term." : "Start by adding some contacts."}
           </p>
           <Button onClick={() => setShowAddDialog(true)}>
-            <UserPlus className="mr-2 h-4 w-4" />
+            <UserPlusIcon className="mr-2 h-4 w-4" />
             Add Contact
           </Button>
         </div>
       ) : (
         <div className="space-y-8">
           {/* Favorites section */}
-          {contacts.some(c => c.favorite) && (
+          {contacts.some((c: Contact) => c.favorite) && (
             <div>
               <h2 className="text-lg font-semibold mb-4">Favorites</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {contacts.filter(c => c.favorite).map(contact => (
+                {contacts.filter((c: Contact) => c.favorite).map((contact: Contact) => (
                   <ContactCard 
                     key={contact.id} 
                     contact={contact} 
@@ -372,11 +374,11 @@ export default function Contacts() {
           )}
           
           {/* All contacts by letter */}
-          {sortedKeys.map(letter => (
+          {sortedKeys.map((letter: string) => (
             <div key={letter}>
               <h2 className="text-lg font-semibold mb-4">{letter}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {groupedContacts[letter].map(contact => (
+                {groupedContacts[letter].map((contact: Contact) => (
                   <ContactCard 
                     key={contact.id} 
                     contact={contact} 
@@ -438,13 +440,13 @@ function ContactCard({ contact, onEdit, onDelete, onToggleFavorite }: ContactCar
             <h3 className="font-semibold text-lg">{contact.name}</h3>
             {contact.email && (
               <div className="text-sm text-gray-600 flex items-center mt-1">
-                <Mail className="h-3 w-3 mr-1" />
+                <MailIcon className="h-3 w-3 mr-1" />
                 {contact.email}
               </div>
             )}
             {contact.phone && (
               <div className="text-sm text-gray-600 flex items-center mt-1">
-                <Phone className="h-3 w-3 mr-1" />
+                <PhoneIcon className="h-3 w-3 mr-1" />
                 {contact.phone}
               </div>
             )}
@@ -455,21 +457,21 @@ function ContactCard({ contact, onEdit, onDelete, onToggleFavorite }: ContactCar
               onClick={onToggleFavorite}
               title={contact.favorite ? "Remove from favorites" : "Add to favorites"}
             >
-              <Star className="h-5 w-5" fill={contact.favorite ? "currentColor" : "none"} />
+              <StarIcon className="h-5 w-5" fill={contact.favorite ? "currentColor" : "none"} />
             </button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <MoreVertical className="h-4 w-4" />
+                  <MoreVerticalIcon className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={onEdit}>
-                  <Edit className="mr-2 h-4 w-4" />
+                  <EditIcon className="mr-2 h-4 w-4" />
                   Edit
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={onDelete} className="text-red-600">
-                  <Trash className="mr-2 h-4 w-4" />
+                  <TrashIcon className="mr-2 h-4 w-4" />
                   Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>

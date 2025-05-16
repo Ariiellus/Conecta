@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { CreditCard, Menu, X } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { usePrivy } from "@privy-io/react-auth";
 
@@ -25,7 +25,7 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { login, authenticated, ready } = usePrivy();
-  const [_, setLocation] = useLocation();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +56,7 @@ export function Navbar() {
 
   const handleLoginClick = () => {
     if (ready && authenticated) {
-      setLocation("/dashboard");
+      router.push("/dashboard");
     } else {
       login();
     }

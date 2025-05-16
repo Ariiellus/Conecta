@@ -1,5 +1,6 @@
 import { Home, ArrowRightLeft, History, Users, Settings, ChevronLeft, ChevronRight, Wallet } from "lucide-react";
-import { Link, useLocation } from "wouter";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import TransactionItem from "./TransactionItem";
 import { Transaction } from "@shared/schema";
 import { useState } from "react";
@@ -16,7 +17,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ transactions }: SidebarProps) {
-  const [location] = useLocation();
+  const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const navItems = [
@@ -57,7 +58,7 @@ export default function Sidebar({ transactions }: SidebarProps) {
               <Link href={item.href}>
                 <div 
                   className={`flex items-center p-3 rounded-lg transition-colors group ${
-                    location === item.href
+                    pathname === item.href
                       ? "bg-primary-dark bg-opacity-10 text-primary" 
                       : "text-primary-dark hover:bg-gray-100"
                   } cursor-pointer ${isCollapsed ? 'justify-center' : ''}`}

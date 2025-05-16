@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useMemo } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
 import TransactionItem from "@/components/TransactionItem";

@@ -4,7 +4,7 @@
 
 Demo [here](https://conecta-git-main-ariiellus-projects.vercel.app/)
 
-![landing](./assets/Landing.png)
+![landing](./public/Landing.png)
 
 ## Overview
 
@@ -26,7 +26,7 @@ Let's say you're a business owner in Brazil receiving payment from a client in M
 3. Client pays in their local currency (MXN)
 4. You receive the payment in BRZ automatically
 
-![currency](./assets/CurrencySettings.png)
+![currency](./public/CurrencySettings.png)
 
 ## Supported Networks & Tokens
 

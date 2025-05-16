@@ -1,13 +1,14 @@
-import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "@/components/ui/theme-provider";
-import App from "./App";
-import "./index.css";
-import Providers from "./providers/providers";
+"use client";
 
-createRoot(document.getElementById("root")!).render(
-  <Providers>
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import Landing from "./Landing/page";
+
+export default function Page() {
+  return (
     <ThemeProvider defaultTheme="light" storageKey="Conecta-theme">
-      <App />
+      <div className="min-h-screen">
+        <Landing />
+      </div>
     </ThemeProvider>
-  </Providers>
-);
+  );
+}

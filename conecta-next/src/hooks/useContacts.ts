@@ -1,6 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Contact } from "@shared/schema";
+
+// Define Contact interface locally
+export interface Contact {
+  id: number;
+  name: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  notes?: string;
+  favorite: boolean;
+  userId?: string;
+  createdAt?: string;
+}
 
 export function useContacts() {
   const queryClient = useQueryClient();
