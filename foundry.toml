@@ -6,6 +6,6 @@ libs = ["lib"]
  
 remappings = [
     "forge-std/=lib/forge-std/src/",
-    "@openzeppelin/=lib/openzeppelin-contracts/",
-    "v4-core/=lib/v4-core/src/"
+    "@openzeppelin/=node_modules/@openzeppelin/",
+    "@uniswap/v4-core/=node_modules/@uniswap/v4-core/"
 ] 
