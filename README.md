@@ -31,11 +31,8 @@ Let's say you're a business owner in Brazil receiving payment from a client in M
 ## Supported Networks & Tokens
 
 ### Base Network
+
 - USDC: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`
 - EURC: `0x60a3E35Cc302bFA44Cb288Bc5a4F316Fdb1adb42`
 - MXN: `0xa411c9Aa00E020e4f88Bc19996d29c5B7ADB4ACf`
 - BRZ: `0xE9185Ee218cae427aF7B9764A011bb89FeA761B4`
-
-### Mantle Network
-- USDC: `0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9`
-- BRZ: `0x05539F021b66Fd01d1FB1ff8E167CdD09bf7c2D0`
