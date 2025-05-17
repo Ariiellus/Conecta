@@ -65,11 +65,15 @@ contract StablecoinRouter is Ownable {
 
         poolManager = IPoolManager(_poolManager);
         swapHook = SwapExecutorHook(_swapHook);
-
+        // for Base
         _addStablecoin(0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913); // USDC
         _addStablecoin(0x60a3E35Cc302bFA44Cb288Bc5a4F316Fdb1adb42); // EURC
         _addStablecoin(0xa411c9Aa00E020e4f88Bc19996d29c5B7ADB4ACf); // MXN
         _addStablecoin(0xE9185Ee218cae427aF7B9764A011bb89FeA761B4); // BRZ
+
+        // for Sepolia Base 
+        // _addStablecoin(0xCd099308b66804E73d89e766923130FCda19b703); // USDC
+        // _addStablecoin(0x22F926E1A35A435484Ae1445f750A2E8C21754Dc); // MXN
     }
 
 
